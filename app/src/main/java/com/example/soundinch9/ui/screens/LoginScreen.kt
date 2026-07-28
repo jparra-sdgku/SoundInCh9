@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.soundinch9.ui.LoginViewModel
+import com.example.soundinch9.ui.UserSessionViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -56,6 +57,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = viewModel(),
+    sessionViewModel: UserSessionViewModel,
     onNavigateToRegister: () -> Unit,
     onLoginSuccess: () -> Unit
 ) {
@@ -97,6 +99,10 @@ fun LoginScreen(
                 val isValid = viewModel.validateAndLogin()
                 scope.launch {
                     if (isValid) {
+                        sessionViewModel.login(
+                            name = "John Doe",
+                            email = email
+                        )
                         snackbarHostState.showSnackbar(
                             message = "Welcome to SoundIn",
                             actionLabel = "Done",

@@ -13,7 +13,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
+import com.example.soundinch9.ui.UserSessionViewModel
 import com.example.soundinch9.ui.navigation.SoundInNavGraph
 import com.example.soundinch9.ui.screens.LoginScreen
 import com.example.soundinch9.ui.theme.SoundInCh9Theme
@@ -23,13 +25,17 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val sessionViewModel : UserSessionViewModel = viewModel()
             SoundInCh9Theme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    SoundInNavGraph(navController = navController)
+                    SoundInNavGraph(
+                        navController = navController,
+                        sessionViewModel = sessionViewModel
+                    )
                     // Navigations goes here
                 }
             }
